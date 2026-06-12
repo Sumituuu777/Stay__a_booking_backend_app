@@ -1,0 +1,40 @@
+<nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <div>
+        <h1 class="text-2xl font-bold text-red-500 inline-block -mr-1">Air</h1>
+        <h1 class="text-2xl font-bold text-grey-800 inline-block">bnb</h1>
+    </div>
+
+    <div class="space-x-6">
+        <a href="/" class="text-gray-700 hover:text-red-500 font-medium">Home</a>
+        
+        <% if(isLoggedIn){ %>
+            <% if(user.userType==='host'){ %>
+
+            <a href="/host/host-homes" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Host Homes
+            </a>
+            <a href="/host/add-home?editing=false" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Add Home
+            </a>
+
+            <% }else{ %>
+            <a href="/favorites" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Favorites
+            </a>
+            <a href="/availablehomes" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Available Homes
+            </a>
+            <% } %>
+            <form action="/logout" method="POST" class="inline-block">
+                <input type="submit" value="logout" name="logout" class="text-gray-700 hover:text-red-500 font-medium">
+            </form>          
+        <% }else{ %>
+        <a href="/login" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            login
+        </a>
+        <a href="/signup" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+            signup
+        </a>
+        <% } %>
+    </div>
+</nav>

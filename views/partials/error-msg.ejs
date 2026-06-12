@@ -1,0 +1,10 @@
+ <% if(typeof errorMessages !=='undefined' && errorMessages && errorMessages.length>0){ %>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mr-5"
+            role="alert">
+                <ul class="list-disc list-inside space-y-1">
+                    <% errorMessages.forEach(err=>{ %>
+                        <li><%= err %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% }; %>
