@@ -5,7 +5,6 @@ exports.getHostHomes=(req,res,next)=>{
     const userId=req.session.user._id;
 
     Home.find({hostId:userId}).then((registeredHomes)=>{
-        console.log(registeredHomes);
         res.render('host/hosthomes',{homes : registeredHomes,title:'Host Homes',isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
         })

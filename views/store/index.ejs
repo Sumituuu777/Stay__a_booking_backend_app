@@ -59,12 +59,18 @@
                         >
                             View Details
                         </a>
-                        <a 
-                            href="/login"
-                            class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition"
-                        >
-                            BooK Now
-                        </a>
+                        <% if(isLoggedIn){ %>
+                <a href="/book/<%= home._id %>"
+                class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition">
+                Book Now
+            </a>
+            <% }else{ %>
+                <a href="/login"
+                    class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition">
+                    Book Now
+                </a>
+                <% } %>
+        
 
                     </div>
                 </div>
