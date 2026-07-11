@@ -1,79 +1,156 @@
 <%-include('../partials/head') %>
-<body class="bg-gray-100">
 
-    <!-- Navbar -->
-    <%-include('../partials/nav') %>
+    <body class="bg-gray-900">
 
-    <!-- Main Content -->
-    <div class="p-6">
-        <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
-            Available Homes
-        </h2>
+        <!-- Navbar -->
+        <%-include('../partials/nav') %>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <% homes.forEach(home => { %>
-                
-                <!-- Card -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+            <!-- Main Content -->
+            <div class="p-6 mt-8">
+                <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
+                    Available Homes
+                </h2>
 
-                    <!-- Image Wrapper -->
-                    <div class="relative">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <% homes.forEach(home=>{ %>
 
                         <!-- Image -->
-                        <img 
-                            src="<%= home.image || home.photoURL || 'https://via.placeholder.com/400'%>" 
-                            alt="home image"
-                            class="w-full h-52 object-cover"
-                        >
 
-                        <!-- Wishlist Button -->
-                        <%-include('../partials/favorites',{home:home})%>
-                    </div>
+                        <div class="group relative rounded-3xl overflow-hidden
+                                bg-white/5
+                                backdrop-blur-xl
+                                border border-white/10
+                                shadow-2xl
+                                hover:-translate-y-1
+                                hover:border-red-400/40
+                                transition-all duration-500">
 
-                    <!-- Card Content -->
-                    <div class="p-4">
-                        
-                        <!-- Location + Rating -->
-                        <div class="flex justify-between items-center mb-2">
-                            <p class="text-gray-700 font-medium">
-                                📍 <%= home.location || "Unknown location" %>
-                            </p>
-                            <p class="text-yellow-500 font-semibold">
-                                ⭐ <%= home.rating || "4.5" %>
-                            </p>
+                            <img src="<%= home.image || home.photoURL || 'https://via.placeholder.com/500' %>"
+                                alt="<%= home.houseName %>" class="w-full h-64 object-cover">
+
+                            <%-include('../partials/favorites',{home:home})%>
+                                <!-- Card Content -->
+
+                                <div class="p-6">
+
+                                    <!-- Location + Rating -->
+
+                                    <div class="flex justify-between items-center mb-4">
+
+                                        <div class="flex items-center gap-2">
+
+                                            <span class="text-red-400 text-sm">📍</span>
+
+                                            <span class="text-gray-300 text-sm font-medium">
+                                                <%= home.location || "Unknown Location" %>
+                                            </span>
+
+                                        </div>
+
+                                        <div class="flex items-center gap-1">
+
+                                            <span class="text-yellow-400">⭐</span>
+
+                                            <span class="text-yellow-300 font-semibold">
+                                                <%= home.rating || "4.8" %>
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                    <!-- House Name -->
+
+                                    <h3 class="text-2xl font-bold
+                                                mb-3
+                                                text-white
+                                                group-hover:text-red-300
+                                                transition">
+
+                                        <%= home.houseName %>
+
+                                    </h3>
+
+
+
+
+
+                                    <!-- Price -->
+
+                                    <div class="mb-6">
+
+                                        <span class="text-2xl font-bold text-white">
+
+                                            ₹<%= home.price || "1000" %>
+
+                                        </span>
+
+                                        <span class="text-gray-400">
+
+                                            / night
+
+                                        </span>
+
+                                    </div>
+
+
+
+
+
+                                    <!-- Buttons -->
+
+                                    <div class="flex items-center gap-3">
+
+                                        <!-- View Details -->
+
+                                        <a href="/home/<%= home._id %>" class="px-5 py-2.5
+                                                rounded-lg
+                                                bg-[#3b5edb]
+                                                hover:bg-[#2f4fc3]
+                                                text-white
+                                                text-sm
+                                                font-medium
+                                                shadow-lg
+                                                transition-all
+                                                duration-300
+                                                cursor-pointer">
+
+                                            View Details
+
+                                        </a>
+
+                                        <a href="/book/<%= home._id %>" class="px-5 py-2.5
+                                                        rounded-lg
+                                                        bg-gradient-to-r
+                                                        from-pink-500
+                                                        to-red-500
+                                                        hover:from-pink-400
+                                                        hover:to-red-400
+                                                        text-white
+                                                        text-sm
+                                                        font-medium
+                                                        shadow-lg
+                                                        hover:shadow-red-500/40
+                                                        transition-all
+                                                        duration-300">
+
+                                                Book Now
+
+                                        </a>
+                                    </div>
+
+                                </div>
+
                         </div>
-
-                        <!-- House Name -->
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">
-                            <%= home.houseName %>
-                        </h3>
-
-                        <!-- Price -->
-                        <p class="text-gray-900 font-semibold mb-3">
-                            ₹<%= home.price || "1000" %>
-                            <span class="text-gray-500 font-normal">/ night</span>
-                        </p>
-
-                        <!-- View Details Button -->
-                        <a 
-                            href="/home/<%= home._id %>"
-                            class="block text-center bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition"
-                        >
-                            View Details
-                        </a>
-                        <a 
-                            href=""
-                            class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition"
-                        >
-                            BooK Now
-                        </a>
-
-                    </div>
+                        <% }) %>
                 </div>
+            </div>
 
-            <% }); %>
-        </div>
-    </div>
+    </body>
 
-</body>
-</html>
+    </html>
