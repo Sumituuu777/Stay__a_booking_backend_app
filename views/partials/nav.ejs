@@ -1,40 +1,72 @@
-<nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-    <div>
-        <h1 class="text-2xl font-bold text-red-500 inline-block -mr-1">Air</h1>
-        <h1 class="text-2xl font-bold text-grey-800 inline-block">bnb</h1>
-    </div>
+<nav
+    class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-8 py-1 flex items-center justify-between">
 
-    <div class="space-x-6">
-        <a href="/" class="text-gray-700 hover:text-red-500 font-medium">Home</a>
-        
-        <% if(isLoggedIn){ %>
-            <% if(user.userType==='host'){ %>
+        <!-- Logo -->
+        <a href="/" class="flex items-center">
+            <h1 class="text-3xl font-bold tracking-tight">
+                <span class="text-red-500">Air</span><span class="text-white">bnb</span>
+            </h1>
+        </a>
 
-            <a href="/host/host-homes" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                Host Homes
+        <!-- Navigation -->
+        <div class="flex items-center gap-4">
+
+            <a href="/"
+                class="text-white/80 hover:text-white transition duration-300 font-medium">
+                Home
             </a>
-            <a href="/host/add-home?editing=false" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                Add Home
-            </a>
+
+            <% if(isLoggedIn){ %>
+
+                <% if(user.userType==='host'){ %>
+
+                    <a href="/host/host-homes"
+                        class="text-white/80 hover:text-white transition duration-300 font-medium">
+                        Host Homes
+                    </a>
+
+                    <a href="/host/add-home?editing=false"
+                        class="px-5 py-2 rounded-md bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-lg hover:scale-105 transition duration-300">
+                        Add Home
+                    </a>
+
+                <% }else{ %>
+
+                    <a href="/favorites"
+                        class="px-5 py-2 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-white/20 transition">
+                        Favorites
+                    </a>
+
+                    <a href="/availablehomes"
+                        class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-lg hover:scale-105 transition duration-300">
+                        Available Homes
+                    </a>
+
+                <% } %>
+
+                <form action="/logout" method="POST" class="inline-block">
+                    <button type="submit"
+                        class="text-white/80 hover:text-red-400 transition font-medium">
+                        Logout
+                    </button>
+                </form>
 
             <% }else{ %>
-            <a href="/favorites" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                Favorites
-            </a>
-            <a href="/availablehomes" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                Available Homes
-            </a>
+
+                <a href="/login"
+                    class="px-5 py-2 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-white/20 transition">
+                    Login
+                </a>
+
+                <a href="/signup"
+                    class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-lg hover:scale-105 transition duration-300">
+                    Sign Up
+                </a>
+
             <% } %>
-            <form action="/logout" method="POST" class="inline-block">
-                <input type="submit" value="logout" name="logout" class="text-gray-700 hover:text-red-500 font-medium">
-            </form>          
-        <% }else{ %>
-        <a href="/login" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            login
-        </a>
-        <a href="/signup" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800">
-            signup
-        </a>
-        <% } %>
+
+        </div>
+
     </div>
 </nav>

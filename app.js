@@ -74,12 +74,25 @@ const fileFilter=(req,file,cb)=>{
 
 app.use(multer({storage, fileFilter}).single('photo'))
 app.use('/uploads',express.static(path.join(rootdir,"uploads")))
+
+
 //  local middleware starting
+
 app.use(authRouter)
+
+
+// res.locals is an object whose properties are automatically available inside the template being rendered (for example, an EJS view).
+// Instead of doing
+// res.render("shop", {
+//     isLoggedIn: req.session.isLoggedIn
+// });   for every route.  -----------
+
 app.use((req, res, next) => {
     res.locals.isLoggedIn = req.session.isLoggedIn;
     next();
 });
+
+
 app.use(storeRouter)
 app.use("/host",hostRouter)
 

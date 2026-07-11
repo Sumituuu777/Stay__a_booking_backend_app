@@ -1,83 +1,327 @@
-<%-include('../partials/head') %>
-<body class="bg-gray-100">
+<%- include('../partials/head') %>
 
-    <!-- Navbar -->
-    <%-include('../partials/nav') %>
+    <body class="bg-[#0b1020] text-white font-[Poppins]">
 
-    <!-- Main Content -->
-    <div class="p-6">
-        <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
-            Welcome to our Airbnb
-        </h2>
+        <!-- Navbar -->
+        <%- include('../partials/nav') %>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <% homes.forEach(home => { %>
-                
-                <!-- Card -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+            <!-- ================= HERO SECTION ================= -->
 
-                    <!-- Image Wrapper -->
-                    <div class="relative">
+            <section class="relative h-screen overflow-hidden">
 
-                        <!-- Image -->
-                        <img 
-                            src="<%=home.image || home.photoURL || 'https://via.placeholder.com/400' %>" 
-                            alt="home image"
-                            class="w-full h-52 object-cover"
-                        >
+                <!-- Background Image -->
+                <img src="/photos/hero.jpg"
+                    alt="Hero" class="absolute inset-0 w-full h-full object-cover">
 
-                    </div>
+                <!-- Dark Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-[#0b1020]"></div>
 
-                    <!-- Card Content -->
-                    <div class="p-4">
-                        
-                        <!-- Location + Rating -->
-                        <div class="flex justify-between items-center mb-2">
-                            <p class="text-gray-700 font-medium">
-                                📍 <%= home.location || "Unknown location" %>
-                            </p>
-                            <p class="text-yellow-500 font-semibold">
-                                ⭐ <%= home.rating || "4.5" %>
-                            </p>
-                        </div>
+                <!-- Hero Content -->
+                <div class="relative z-10 max-w-7xl mx-auto h-full flex items-center px-8 py-0 -my-9">
 
-                        <!-- House Name -->
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">
-                            <%= home.houseName %>
-                        </h3>
+                    <div class="max-w-xl">
 
-                        <!-- Price -->
-                        <p class="text-gray-900 font-semibold mb-3">
-                            ₹<%= home.price || "1000" %>
-                            <span class="text-gray-500 font-normal">/ night</span>
+                        <p class="uppercase tracking-[4px] text-red-400 font-semibold text-sm mb-3">
+                            Find Your Perfect Stay
                         </p>
 
-                        <!-- View Details Button -->
-                        <a 
-                            href="/home/<%= home._id %>"
-                            class="block text-center bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition"
-                        >
-                            View Details
+                        <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-4">
+                            Welcome to <br>
+                            our Airbnb
+                        </h1>
+
+                        <p class="text-gray-300 text-lg leading-8 mb-5">
+                            Discover unique places to stay and unforgettable
+                            experiences across India.
+                        </p>
+
+                        <a href="#homes" class="inline-flex items-center gap-3
+                            px-8 py-4 rounded-full
+                            bg-gradient-to-r from-pink-500 to-red-500
+                            hover:scale-105
+                            transition-all duration-300
+                            shadow-2xl">
+
+                            Explore Homes
+
+                            <span class="text-xl">→</span>
+
                         </a>
-                        <% if(isLoggedIn){ %>
-                <a href="/book/<%= home._id %>"
-                class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition">
-                Book Now
-            </a>
-            <% }else{ %>
-                <a href="/login"
-                    class="block text-center bg-green-500 text-white py-2 my-2 rounded-xl hover:bg-green-600 transition">
-                    Book Now
-                </a>
-                <% } %>
-        
 
                     </div>
+
                 </div>
 
-            <% }); %>
-        </div>
-    </div>
+            </section>
 
-</body>
-</html>
+
+            <!-- ================= FEATURED HOMES ================= -->
+
+            <section id="homes" class="relative z-20 max-w-7xl mx-auto px-8 -mt-28 pb-20">
+<!-- 
+                <div class="flex justify-between items-center mb-12">
+
+                    <div>
+
+                        <h2 class="text-4xl font-bold">
+                            Explore Top Stays
+                        </h2>
+
+                        <p class="text-gray-400 mt-2">
+                            Handpicked homes for your next vacation.
+                        </p>
+
+                    </div>
+
+                </div> -->
+
+
+                <!-- Cards -->
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <% homes.forEach(home=>{ %>
+
+                        
+
+                            <!-- Image -->
+
+                            <div class="group relative rounded-3xl overflow-hidden
+                                bg-white/5
+                                backdrop-blur-xl
+                                border border-white/10
+                                shadow-2xl
+                                hover:-translate-y-3
+                                hover:border-red-400/40
+                                transition-all duration-500">
+
+                                <img src="<%= home.image || home.photoURL || 'https://via.placeholder.com/500' %>"
+                                    alt="<%= home.houseName %>" class="w-full h-64 object-cover
+                                    group-hover:scale-110
+                                    transition duration-700">
+
+                                <!-- Image Overlay -->
+
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                                </div>
+
+                                <!-- Favorite Button -->
+
+                                <% if(isLoggedIn){ %>
+
+                                    <form action="/favorites" method="POST">
+
+                                        <input type="hidden" name="homeId" value="<%= home._id %>">
+
+                                        <button type="submit" class="absolute top-4 right-4
+                                            w-11 h-11
+                                            rounded-full
+                                            bg-white/20
+                                            backdrop-blur-xl
+                                            border border-white/20
+                                            hover:bg-red-500
+                                            hover:scale-110
+                                            transition-all
+                                            duration-300
+                                            flex
+                                            items-center
+                                            justify-center">
+
+                                            ❤️
+
+                                        </button>
+
+                                    </form>
+
+                                    <% } %>
+                                        <!-- Card Content -->
+
+                                        <div class="p-6">
+
+                                            <!-- Location + Rating -->
+
+                                            <div class="flex justify-between items-center mb-4">
+
+                                                <div class="flex items-center gap-2">
+
+                                                    <span class="text-red-400 text-sm">📍</span>
+
+                                                    <span class="text-gray-300 text-sm font-medium">
+                                                        <%= home.location || "Unknown Location" %>
+                                                    </span>
+
+                                                </div>
+
+                                                <div class="flex items-center gap-1">
+
+                                                    <span class="text-yellow-400">⭐</span>
+
+                                                    <span class="text-yellow-300 font-semibold">
+                                                        <%= home.rating || "4.8" %>
+                                                    </span>
+
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+                                            <!-- House Name -->
+
+                                            <h3 class="text-2xl font-bold
+                                                mb-3
+                                                text-white
+                                                group-hover:text-red-300
+                                                transition">
+
+                                                <%= home.houseName %>
+
+                                            </h3>
+
+
+
+
+
+                                            <!-- Price -->
+
+                                            <div class="mb-6">
+
+                                                <span class="text-2xl font-bold text-white">
+
+                                                    ₹<%= home.price || "1000" %>
+
+                                                </span>
+
+                                                <span class="text-gray-400">
+
+                                                    / night
+
+                                                </span>
+
+                                            </div>
+
+
+
+
+
+                                            <!-- Buttons -->
+
+                                            <div class="flex items-center gap-3">
+
+                                                <!-- View Details -->
+
+                                                <a href="/home/<%= home._id %>" class="px-5 py-2.5
+                                                rounded-lg
+                                                bg-[#3b5edb]
+                                                hover:bg-[#2f4fc3]
+                                                text-white
+                                                text-sm
+                                                font-medium
+                                                shadow-lg
+                                                transition-all
+                                                duration-300">
+
+                                                    View Details
+
+                                                </a>
+
+
+
+
+
+                                                <% if(isLoggedIn){ %>
+
+                                                    <a href="/book/<%= home._id %>" class="px-5 py-2.5
+                                                        rounded-lg
+                                                        bg-gradient-to-r
+                                                        from-pink-500
+                                                        to-red-500
+                                                        hover:from-pink-400
+                                                        hover:to-red-400
+                                                        text-white
+                                                        text-sm
+                                                        font-medium
+                                                        shadow-lg
+                                                        hover:shadow-red-500/40
+                                                        transition-all
+                                                        duration-300">
+
+                                                        Book Now
+
+                                                    </a>
+
+                                                    <% } else { %>
+
+                                                        <a href="/login" class="px-5 py-2.5
+                                                        rounded-lg
+                                                        bg-gradient-to-r
+                                                        from-pink-500
+                                                        to-red-500
+                                                        hover:from-pink-400
+                                                        hover:to-red-400
+                                                        text-white
+                                                        text-sm
+                                                        font-medium
+                                                        shadow-lg
+                                                        hover:shadow-red-500/40
+                                                        transition-all
+                                                        duration-300">
+
+                                                            Book Now
+
+                                                        </a>
+
+                                                        <% } %>
+
+                                            </div>
+
+                                        </div>
+
+                            </div>
+                            <% }) %>
+
+
+            </section>
+
+
+
+
+
+            <!-- Footer -->
+
+            <footer class="border-t border-white/10 bg-[#0b1020]">
+
+                <div class="max-w-7xl mx-auto px-8 py-5">
+
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+
+                        <div>
+
+                            <h2 class="text-2xl font-bold">
+                                <span class="text-red-500">Air</span>bnb
+                            </h2>
+
+                            <p class="text-gray-400 mt-2 text-sm">
+                                Discover your perfect stay anywhere in the world.
+                            </p>
+
+                        </div>
+
+                        <div class="text-gray-500 text-sm">
+
+                            © <%= new Date().getFullYear() %> Airbnb Clone. All Rights Reserved.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+    </body>
+
+    </html>
