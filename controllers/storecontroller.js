@@ -2,6 +2,7 @@ const Home=require('../Models/home');
 const User = require('../Models/user');
 const path=require('path');
 const rootdir = require('../util/path');
+const user = require('../Models/user');
 
 
 exports.homepage=(req,res,next)=>{ 
@@ -104,3 +105,22 @@ exports.getHouseRules=[(req,res,next)=>{
     const filepath=path.join(rootdir,'rules',rulesFilename)
     res.download(filepath,'Rules.pdf')
 }]
+
+//--------------  Booking function     ----------------------
+
+exports.getBooked= async (req,res,next)=>{
+    try{
+        const homeId=req.params.homeId;
+        const userId= req.session.user._id;
+
+        await User.findById(userId).then(user=>{
+            user.isBooked=true;
+            return user.save();
+        })
+        .catch((err)=>{
+            console.log("Error in remove from favorites",err);
+        })
+    }catch(err){
+        console.log("Error in remove from favorites",err);
+    }
+}

@@ -12,4 +12,6 @@ storeRouter.post('/favorites',postFavorites)
 storeRouter.get('/home/:homeId',getDetails)
 storeRouter.get("/remove-fav/:homeId",postremoveFavorite)
 storeRouter.get("/rules/:homeId",getHouseRules)
+storeRouter.get("/book/:homeId",)
+
 exports.storeRouter=storeRouter;
