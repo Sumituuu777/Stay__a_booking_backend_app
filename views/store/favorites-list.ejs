@@ -107,7 +107,20 @@
                                              Details
 
                                         </a>
-                                        <a href="/book/<%= home._id %>" class="px-5 py-2.5
+                                        <% if(home.isBooked){ %>
+                                            <a class="px-5 py-2.5 cursor-not-allowed
+                                                        rounded-lg
+                                                        border border-green-500
+                                                        bg-transparent
+                                                        text-green-500
+                                                        text-sm
+                                                        font-medium">
+
+                                                Booked
+
+                                            </a>
+                                        <% }else{ %>
+                                            <a href="/book/<%= home._id %>" class="px-5 py-2.5
                                                         rounded-lg
                                                         bg-gradient-to-r
                                                         from-pink-500
@@ -123,8 +136,9 @@
                                                         duration-300">
 
                                                 Book
-
-                                        </a>
+                                            </a>
+                                        <% } %>
+                                        
                                         <a href="/remove-fav/<%= home._id %>" class="px-5 py-2.5
                                                         rounded-lg
                                                         bg-gradient-to-r

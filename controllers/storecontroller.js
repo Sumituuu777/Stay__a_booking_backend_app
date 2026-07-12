@@ -2,10 +2,20 @@ const Home=require('../Models/home');
 const User = require('../Models/user');
 const path=require('path');
 const rootdir = require('../util/path');
+const user = require('../Models/user');
 
 
 exports.homepage=(req,res,next)=>{ 
     Home.find().then((registeredHomes)=>{
+        registeredHomes.forEach(home=>{
+            if(home.isBooked){
+                if(home.bookingExpiry < Date.now()){
+                    home.bookingExpiry=undefined;
+                    home.isBooked=undefined;
+                    home.bookerId=undefined;
+                }
+            }
+        })
         res.render('store/index',{homes : registeredHomes,title:'Airbnb',isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
         })
@@ -104,3 +114,27 @@ exports.getHouseRules=[(req,res,next)=>{
     const filepath=path.join(rootdir,'rules',rulesFilename)
     res.download(filepath,'Rules.pdf')
 }]
+
+//--------------  Booking function     ----------------------
+
+exports.getBooked= (req,res,next)=>{
+    try{
+        const homeId=req.params.homeId;
+        const userId= req.session.user._id;
+
+        Home.findById(homeId).then(home=>{
+            home.isBooked=true;
+            home.bookerId=userId;
+            home.bookingExpiry=Date.now() + 24*60*60*1000;
+            return home.save();
+        })
+        .then(()=>{
+            res.redirect('/')
+        })
+        .catch((err)=>{
+            console.log("Error in booking",err);
+        })
+    }catch(err){
+        console.log("Error in booking",err);
+    }
+}

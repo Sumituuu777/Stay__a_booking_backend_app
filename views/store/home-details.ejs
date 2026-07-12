@@ -55,8 +55,18 @@
             </a>
             <!-- Book Now Button -->
              <% if(isLoggedIn){ %>
-                <a href="/book/<%= home._id %>"
-                class="block text-center text-xl px-5 py-2.5
+                <% if(home.isBooked){ %>
+                    <a 
+                        class="block text-center text-xl px-5 py-2.5
+                         rounded-lg cursor-not-allowed
+                         border border-green-500
+                         bg-transparent
+                         text-green-500">
+                    Book Now
+                    </a>
+                <% }else{ %>
+                    <a href="/book/<%= home._id %>"
+                        class="block text-center text-xl px-5 py-2.5
                          rounded-lg
                           bg-gradient-to-r
                          from-pink-500
@@ -68,8 +78,9 @@
                          hover:shadow-red-500/40
                          transition-all
                         duration-300">
-                Book Now
-            </a>
+                    Book Now
+                    </a>
+                <% } %>
             <% }else{ %>
                 <a href="/login"
                 class="block text-center text-xl px-5 py-2.5
@@ -85,8 +96,8 @@
                          transition-all
                         duration-300">
                 Book Now
-            </a>
-                <% } %>
+                </a>
+            <% } %>
 
         </div>
     </div>
