@@ -7,6 +7,15 @@ const user = require('../Models/user');
 
 exports.homepage=(req,res,next)=>{ 
     Home.find().then((registeredHomes)=>{
+        registeredHomes.forEach(home=>{
+            if(home.isBooked){
+                if(home.bookingExpiry < Date.now()){
+                    home.bookingExpiry=undefined;
+                    home.isBooked=undefined;
+                    home.bookerId=undefined;
+                }
+            }
+        })
         res.render('store/index',{homes : registeredHomes,title:'Airbnb',isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
         })
