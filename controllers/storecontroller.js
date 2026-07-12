@@ -108,19 +108,24 @@ exports.getHouseRules=[(req,res,next)=>{
 
 //--------------  Booking function     ----------------------
 
-exports.getBooked= async (req,res,next)=>{
+exports.getBooked= (req,res,next)=>{
     try{
         const homeId=req.params.homeId;
         const userId= req.session.user._id;
 
-        await User.findById(userId).then(user=>{
-            user.isBooked=true;
-            return user.save();
+        Home.findById(homeId).then(home=>{
+            home.isBooked=true;
+            home.bookerId=userId;
+            home.bookingExpiry=Date.now() + 24*60*60*1000;
+            return home.save();
+        })
+        .then(()=>{
+            res.redirect('/')
         })
         .catch((err)=>{
-            console.log("Error in remove from favorites",err);
+            console.log("Error in booking",err);
         })
     }catch(err){
-        console.log("Error in remove from favorites",err);
+        console.log("Error in booking",err);
     }
 }
