@@ -1,4 +1,4 @@
-# Airbnb-Backend
+# Stay - a Backend web app 
 NOTE:- It is a part of my repo ->  "[learning-Full-Stack-Development](https://github.com/Sumituuu777/learning-Full-Stack-Development/tree/main/backend)" 
 from folder "5-airbnb" to "12-file updownloads".<br>
 which is seperated for deployment and adding some additional features. <br><br>
