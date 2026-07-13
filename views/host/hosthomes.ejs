@@ -6,7 +6,7 @@
         <%-include('../partials/nav') %>
 
             <!-- Main Content -->
-            <div class="p-6 mt-6">
+            <div class="p-6 mt-8">
                 <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
                     Your Hosted Homes
                 </h2>
@@ -30,6 +30,23 @@
                                 hover:border-red-400/40
                                 transition-all duration-500">
 
+                                <% if (home.isBooked) { %>
+                                    <div class="absolute top-4 right-4 z-20
+                                                flex items-center gap-2
+                                                px-4 py-2
+                                                rounded-full
+                                                bg-white/50
+                                                backdrop-blur-2xl
+                                                border border-emerald-400/40
+                                                text-emerald-400
+                                                text-sm
+                                                font-medium
+                                                shadow-xl
+                                                shadow-emerald-500/10">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        <span>Booked</span>
+                                    </div>
+                                    <% } %>
                                 <img src="<%= home.image || home.photoURL || 'https://via.placeholder.com/500' %>"
                                     alt="<%= home.houseName %>" class="w-full h-64 object-cover">
                                 <!-- Card Content -->
