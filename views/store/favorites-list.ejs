@@ -108,7 +108,7 @@
 
                                         </a>
                                         <% if(home.isBooked){ %>
-                                            <a class="px-5 py-2.5 cursor-not-allowed
+                                            <a title=' till <%= new Date(home.bookingExpiry).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit",hour12:true}) %>' class="px-5 py-2.5 cursor-not-allowed
                                                         rounded-lg
                                                         border border-green-500
                                                         bg-transparent

@@ -137,7 +137,7 @@ exports.getBooked= (req,res,next)=>{
             month: "short",
             year: "numeric"
         });
-        
+
         Home.findById(homeId).then(home=>{
             home.isBooked=true;
             home.bookerId=userId;
@@ -159,5 +159,24 @@ exports.getBooked= (req,res,next)=>{
         })
     }catch(err){
         console.log("Error in booking",err);
+    }
+}
+
+//--------------------------get Bookings func----------------------------
+
+exports.getBooking=async(req,res,next)=>{
+    try{
+        const userId=req.params.userId;
+        await Home.find().then(registeredHomes=>{
+            const BookedHomes=registeredHomes.filter(home=>home.bookerId==userId);
+            if(BookedHomes.length==0){
+                return 
+            }
+
+            res.render("store/getBookings",{title:"your Bookings",BookedHomes,isLoggedIn: req.session.isLoggedIn,
+            user:req.session.user})
+        })
+    }catch(err){
+        console.log("Error in get booking",err);
     }
 }

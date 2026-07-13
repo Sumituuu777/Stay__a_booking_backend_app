@@ -1,23 +1,26 @@
 <%-include('../partials/head') %>
+<body class="bg-gray-900">
 
-    <body class="bg-gray-900">
+    <!-- Navbar -->
+    <%-include('../partials/nav') %>
 
-        <!-- Navbar -->
-        <%-include('../partials/nav') %>
+    <!-- Main Content -->
+    <div class="p-6 mt-8">
+        <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
+            Your Bookings
+        </h2>
+        <% if(BookedHomes.length==0){ %>
+            <div class="flex flex-1 justify-center text-center text-gray-400 text-lg font-semibold">
+                <p>you don't have current bookings</p>
+            </div>  
+        <%}%>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <% BookedHomes.forEach(home=>{ %>
 
-            <!-- Main Content -->
-            <div class="p-6 mt-8">
-                <h2 class="text-5xl font-bold text-red-500 mb-10 text-center">
-                    Available Homes
-                </h2>
+                <!-- Image -->
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    <% homes.forEach(home=>{ %>
-
-                        <!-- Image -->
-
-                        <div class="group relative rounded-3xl overflow-hidden
+                    <div class="group relative rounded-3xl overflow-hidden
                                 bg-white/5
                                 backdrop-blur-xl
                                 border border-white/10
@@ -26,27 +29,24 @@
                                 hover:border-red-400/40
                                 transition-all duration-500">
 
-                            <img src="<%= home.image || home.photoURL || 'https://via.placeholder.com/500' %>"
+                        <img src="<%= home.image || home.photoURL || 'https://via.placeholder.com/500' %>"
                                 alt="<%= home.houseName %>" class="w-full h-64 object-cover">
 
-                            <%-include('../partials/favorites',{home:home})%>
-                                <!-- Card Content -->
-
-                                <div class="p-6">
+                        <div class="p-6">
 
                                     <!-- Location + Rating -->
 
-                                    <div class="flex justify-between items-center mb-4">
+                            <div class="flex justify-between items-center mb-4">
 
-                                        <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2">
 
-                                            <span class="text-red-400 text-sm">📍</span>
+                                    <span class="text-red-400 text-sm">📍</span>
 
-                                            <span class="text-gray-300 text-sm font-medium">
-                                                <%= home.location || "Unknown Location" %>
-                                            </span>
+                                    <span class="text-gray-300 text-sm font-medium">
+                                        <%= home.location || "Unknown Location" %>
+                                    </span>
 
-                                        </div>
+                                    </div>
 
                                         <div class="flex items-center gap-1">
 
@@ -60,10 +60,6 @@
 
                                     </div>
 
-
-
-
-
                                     <!-- House Name -->
 
                                     <h3 class="text-2xl font-bold
@@ -75,10 +71,6 @@
                                         <%= home.houseName %>
 
                                     </h3>
-
-
-
-
 
                                     <!-- Price -->
 
@@ -98,10 +90,6 @@
 
                                     </div>
 
-
-
-
-
                                     <!-- Buttons -->
 
                                     <div class="flex items-center gap-3">
@@ -120,12 +108,10 @@
                                                 duration-300
                                                 cursor-pointer">
 
-                                            View Details
+                                             Details
 
                                         </a>
-
-                                        <% if(home.isBooked){ %>
-                                            <a title='Booked till <%= new Date(home.bookingExpiry).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit",hour12:true}) %>' class="px-5 py-2.5 cursor-not-allowed
+                                        <a class="px-5 py-2.5 cursor-not-allowed
                                                         rounded-lg
                                                         border border-green-500
                                                         bg-transparent
@@ -133,29 +119,16 @@
                                                         text-sm
                                                         font-medium">
 
-                                                Booked
+                                                Booked till <span><%= new Date(home.bookingExpiry).toLocaleString("en-GB", {
+                                                                        day: "numeric",
+                                                                        month: "short",
+                                                                        hour: "numeric",
+                                                                        minute: "2-digit",
+                                                                        hour12: true
+                                                                    }) %>
+                                                            </span>
 
                                             </a>
-                                        <% }else{ %>
-                                            <a href="/book/<%= home._id %>" class="px-5 py-2.5
-                                                        rounded-lg
-                                                        bg-gradient-to-r
-                                                        from-pink-500
-                                                        to-red-500
-                                                        hover:from-pink-400
-                                                        hover:to-red-400
-                                                        text-white
-                                                        text-sm
-                                                        font-medium
-                                                        shadow-lg
-                                                        hover:shadow-red-500/40
-                                                        transition-all
-                                                        duration-300">
-
-                                                Book Now
-
-                                        </a>
-                                        <% } %>
                                     </div>
 
                                 </div>
@@ -163,8 +136,7 @@
                         </div>
                         <% }) %>
                 </div>
-            </div>
+    </div>
 
-    </body>
-
-    </html>
+</body>
+</html>

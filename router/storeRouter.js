@@ -1,7 +1,7 @@
 //core modules
 const express=require('express');
 //local modules
-const { homepage, getDetails, availableHomes, postFavorites, getFavoritesList, postremoveFavorite, getHouseRules, getBooked } = require('../controllers/storecontroller');
+const { homepage, getDetails, availableHomes, postFavorites, getFavoritesList, postremoveFavorite, getHouseRules, getBooked, getBooking } = require('../controllers/storecontroller');
 
 const storeRouter=express.Router();
 
@@ -13,5 +13,6 @@ storeRouter.get('/home/:homeId',getDetails)
 storeRouter.get("/remove-fav/:homeId",postremoveFavorite)
 storeRouter.get("/rules/:homeId",getHouseRules)
 storeRouter.get("/book/:homeId",getBooked)
+storeRouter.get("/bookings/:userId",getBooking)
 
 exports.storeRouter=storeRouter;
