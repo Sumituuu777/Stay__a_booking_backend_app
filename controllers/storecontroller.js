@@ -16,7 +16,7 @@ exports.homepage=(req,res,next)=>{
                 }
             }
         })
-        res.render('store/index',{homes : registeredHomes,title:'Airbnb',isLoggedIn: req.session.isLoggedIn,
+        res.render('store/index',{homes : registeredHomes,title:'Stay - find your perfect stay',isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
         })
 }).catch(
@@ -27,7 +27,7 @@ exports.homepage=(req,res,next)=>{
 
 exports.availableHomes=(req,res,next)=>{
     Home.find().then((registeredHomes)=>{
-        res.render('store/AvailableHomes',{homes : registeredHomes,title:'availableHomes',
+        res.render('store/AvailableHomes',{homes : registeredHomes,title:'Available Homes',
             isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
         })
@@ -42,7 +42,6 @@ exports.getDetails=(req,res,next)=>{
     const homeId=req.params.homeId;
     Home.findById(homeId).then((home)=>{
         if(!home){
-            console.log("home not found");
             return res.redirect('store/availablehomes');
         }
         res.render('store/home-details',{home:home,title:'Home details',isLoggedIn: req.session.isLoggedIn,
@@ -60,7 +59,7 @@ exports.getFavoritesList=(req,res,next)=>{
      .then((user)=>{
         res.render('store/favorites-list',{
             favorites:user.favoritesHomes,
-            title:'favorites',
+            title:'favorite Homes',
             isLoggedIn: req.session.isLoggedIn,
             user:req.session.user
             }); 
@@ -110,7 +109,7 @@ exports.getHouseRules=[(req,res,next)=>{
 },
 (req,res,next)=>{
     const homeId=req.params.homeId;
-    const rulesFilename='Sumit_Resume_IIIT_Ranchi.pdf'
+    const rulesFilename='House_Rules_Guide.pdf'
     const filepath=path.join(rootdir,'rules',rulesFilename)
     res.download(filepath,'Rules.pdf')
 }]

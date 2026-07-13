@@ -108,7 +108,7 @@
 
                                         </a>
                                         <% if(home.isBooked){ %>
-                                            <a title=' till <%= new Date(home.bookingExpiry).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit",hour12:true}) %>' class="px-5 py-2.5 cursor-not-allowed
+                                            <a title='Booked till <%= new Date(home.bookingExpiry).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit",hour12:true}) %>' class="px-5 py-2.5 cursor-not-allowed
                                                         rounded-lg
                                                         border border-green-500
                                                         bg-transparent
@@ -142,15 +142,14 @@
                                         <a href="/remove-fav/<%= home._id %>" class="px-5 py-2.5
                                                         rounded-lg
                                                         bg-gradient-to-r
-                                                        from-pink-500
-                                                        to-red-500
-                                                        hover:from-pink-400
-                                                        hover:to-red-400
+                                                        from-red-500
+                                                        to-red-600
+                                                        hover:from-red-600
+                                                        hover:to-red-700
                                                         text-white
                                                         text-sm
                                                         font-medium
                                                         shadow-lg
-                                                        hover:shadow-red-500/40
                                                         transition-all
                                                         duration-300">
 
