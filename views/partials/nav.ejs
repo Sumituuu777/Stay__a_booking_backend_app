@@ -1,6 +1,5 @@
-<nav
-    class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-8 py-2 flex items-center justify-between">
+<nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 
         <!-- Logo -->
         <a href="/" class="flex items-center">
@@ -9,8 +8,8 @@
             </h1>
         </a>
 
-        <!-- Navigation -->
-        <div class="flex items-center gap-9">
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6">
 
             <a href="/"
                 class="text-white/80 hover:text-white transition duration-300 font-medium">
@@ -22,7 +21,7 @@
                 <% if(user.userType==='host'){ %>
 
                     <a href="/host/host-homes"
-                        class="text-white/80 hover:text-white bg-white/10 backdrop-blur-lg border border-white/20 transition duration-300 font-medium">
+                        class="px-5 py-2 rounded-md bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-white/20 transition">
                         Host Homes
                     </a>
 
@@ -43,10 +42,15 @@
                         Available Homes
                     </a>
 
+                    <a href="/bookings/<%= user._id %>"
+                        class="px-5 py-2 rounded-md bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg hover:scale-105 transition duration-300">
+                        Booked Homes
+                    </a>
+
                 <% } %>
 
                 <form action="/logout" method="POST" class="inline-block">
-                    <button type="submit"
+                    <button
                         class="text-white/80 hover:text-red-400 transition font-medium">
                         Logout
                     </button>
@@ -68,5 +72,103 @@
 
         </div>
 
+        <!-- Mobile Hamburger -->
+        <button
+            id="menu-btn"
+            class="md:hidden text-white text-3xl focus:outline-none">
+
+            ☰
+
+        </button>
+
     </div>
+
+    <!-- Mobile Dropdown -->
+    <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10">
+
+        <div class="flex flex-col p-6 gap-4">
+
+            <a href="/"
+                class="text-white hover:text-red-400 transition">
+                Home
+            </a>
+
+            <% if(isLoggedIn){ %>
+
+                <% if(user.userType==='host'){ %>
+
+                    <a href="/host/host-homes"
+                        class="text-white hover:text-red-400 transition">
+                        Host Homes
+                    </a>
+
+                    <a href="/host/add-home?editing=false"
+                        class="text-white hover:text-red-400 transition">
+                        Add Home
+                    </a>
+
+                <% }else{ %>
+
+                    <a href="/favorites"
+                        class="text-white hover:text-red-400 transition">
+                        Favorites
+                    </a>
+
+                    <a href="/availablehomes"
+                        class="text-white hover:text-red-400 transition">
+                        Available Homes
+                    </a>
+
+                    <a href="/bookings/<%= user._id %>"
+                        class="text-white hover:text-red-400 transition">
+                        Booked Homes
+                    </a>
+
+                <% } %>
+
+                <form action="/logout" method="POST">
+
+                    <button
+                        class="text-left text-red-400 hover:text-red-300 transition">
+
+                        Logout
+
+                    </button>
+
+                </form>
+
+            <% }else{ %>
+
+                <a href="/login"
+                    class="text-white hover:text-red-400 transition">
+                    Login
+                </a>
+
+                <a href="/signup"
+                    class="text-white hover:text-red-400 transition">
+                    Sign Up
+                </a>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
 </nav>
+
+<script>
+
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+
+menuBtn.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("hidden");
+
+
+});
+
+</script>

@@ -111,7 +111,7 @@ exports.getHouseRules=[(req,res,next)=>{
     const homeId=req.params.homeId;
     const rulesFilename='House_Rules_Guide.pdf'
     const filepath=path.join(rootdir,'rules',rulesFilename)
-    res.download(filepath,'Rules.pdf')
+    res.download(filepath,'House_Rules_Guide.pdf')
 }]
 
 //--------------  Booking function     ----------------------
