@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+
+    <style>
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.15);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .pop-animation{
+            animation: pop .6s ease forwards;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+
+<div class="w-full max-w-xl">
+
+    <div class="backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl overflow-hidden">
+
+        <!-- Green Tick -->
+        <div class="flex justify-center pt-10">
+
+            <div class="pop-animation w-28 h-28 rounded-full bg-green-500 flex items-center justify-center shadow-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-14 h-14 text-white"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                     stroke-width="3">
+
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M5 13l4 4L19 7"/>
+                </svg>
+
+            </div>
+
+        </div>
+
+        <!-- Heading -->
+
+        <div class="text-center mt-6">
+
+            <h1 class="text-4xl font-bold text-green-600">
+                Booking Confirmed
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Your booking has been reserved successfully.
+            </p>
+
+        </div>
+
+        <!-- Home Card -->
+
+        <div class="mx-8 mt-10 bg-white/5  rounded-2xl shadow-md overflow-hidden">
+
+            <img
+                src="<%= home.photoURL %>"
+                alt="<%= home.houseName %>"
+                class="h-56 w-full object-cover"
+            >
+
+            <div class="p-6">
+
+                <h2 class="text-2xl font-bold text-gray-200">
+                    🏠 <%= home.houseName %>
+                </h2>
+
+                <p class="text-gray-300 mt-2">
+                    📍 <%= home.location %>
+                </p>
+
+                <div class="border-t my-5"></div>
+
+                <div class="space-y-3 text-gray-300">
+
+                    <div class="flex justify-between">
+                        <span>📅 Check-in</span>
+                        <span><%= checkIn %></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>📅 Check-out</span>
+                        <span><%= checkOut %></span>
+                    </div>
+
+                    <div class="flex justify-between font-semibold">
+                        <span>💰 Total Price</span>
+                        <span>₹<%= totalPrice %></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="flex flex-col sm:flex-row gap-4 p-8">
+
+            <a href="/bookings"
+               class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-center text-lg font-semibold transition duration-300 shadow-md">
+
+                View My Bookings
+
+            </a>
+
+            <a href="/" class="inline-flex items-center gap-3
+                            px-8 py-4 rounded-lg
+                            bg-gradient-to-r from-pink-500 to-red-500
+                            hover:scale-105
+                            transition-all duration-300
+                            shadow-2xl">
+
+                            Continue browsing
+
+                            <span class="text-xl">→</span>
+
+                        </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

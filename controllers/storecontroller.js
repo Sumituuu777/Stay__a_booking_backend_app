@@ -121,15 +121,38 @@ exports.getBooked= (req,res,next)=>{
     try{
         const homeId=req.params.homeId;
         const userId= req.session.user._id;
+        const checkInDate = new Date();
 
+        const checkOutDate = new Date(checkInDate);
+        checkOutDate.setHours(checkOutDate.getHours() + 24);
+
+        const checkIn = checkInDate.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+
+        const checkOut = checkOutDate.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+        
         Home.findById(homeId).then(home=>{
             home.isBooked=true;
             home.bookerId=userId;
             home.bookingExpiry=Date.now() + 24*60*60*1000;
             return home.save();
         })
-        .then(()=>{
-            res.redirect('/')
+        .then((home)=>{
+            const totalPrice = home.price;
+            res.render("store/bookingSuccess", {
+            home,
+            title:"Booked",
+            checkIn,
+            checkOut,
+            totalPrice
+        });
         })
         .catch((err)=>{
             console.log("Error in booking",err);
